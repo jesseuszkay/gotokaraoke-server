@@ -121,7 +121,7 @@ const retrieveUserDetails = (req, res) => {
         songs: songs,
       };
 
-      res.status(200).json(userDetails);
+      return res.status(200).json(userDetails);
     })
     .catch((err) => {
       res.status(400).send(`Error retrieving user details: ${err}`);

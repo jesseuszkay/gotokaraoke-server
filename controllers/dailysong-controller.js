@@ -1,70 +1,75 @@
 const knex = require("knex")(require("../knexfile"));
 
-const add = (req, res) => {
+const addSong = (req, res) => {
   const videoId = req.body.videoId;
-  const fun = 0;
-  const boring = 0;
-  const easy = 0;
-  const hard = 0;
-
+  console.log("hi");
   knex("daily_songs")
     .where({ videoId })
     .first()
     .then((existingSong) => {
       if (existingSong) {
-        res
-          .status(200)
-          .json({ message: "A row with the same videoId already exists." });
-        return;
+        return res.status(200).json({ message: "Song added successfully." });
       }
-      return knex("daily_songs").insert({ videoId, fun, boring, easy, hard });
+      knex("daily_songs").insert({ videoId, fun: 0, easy: 0 });
     })
-    .then((result) => {
-      if (!result) {
-        return;
+    .then(() => {
+      return res.status(200).json({ message: "Song added successfully." });
+    })
+    .catch((error) => {});
+};
+
+// Endpoint for adding a vote to the daily_song_votes table
+const addVote = (req, res) => {
+  const videoId = req.body.videoId;
+  const userId = req.body.userId;
+
+  knex("daily_song_votes")
+    .where({ videoId, user_id: userId })
+    .first()
+    .then((existingVote) => {
+      if (existingVote) {
+        return res.status(200).json({ message: "Voter added successfully." });
       }
-      return knex("daily_songs").where({ id: result[0] });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: "Unable to add song to list",
-        error: error.message,
+      return knex("daily_song_votes").insert({
+        videoId,
+        user_id: userId,
+        fun: 0,
+        easy: 0,
       });
-    });
+    })
+    .then(() => {
+      res.status(200).json({ message: "Vote added successfully." });
+    })
+    .catch((error) => {});
 };
 
 const rate = (req, res) => {
+  const videoId = req.params.videoid;
+  const userId = req.body.userId;
+  const type = req.body.type;
+
+  knex("daily_song_votes")
+    .where({ videoId, user_id: userId })
+    .update({ [type]: knex.raw("NOT ??", [type]) })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).send(`Error updating song votes: ${err}`));
+};
+
+const getDailySongStats = (req, res) => {
   const videoID = req.params.videoid;
-  const { type, direction } = req.body;
-
-  let columnToUpdate = "";
-
-  // Determine the column to update based on the 'type' parameter
-  if (type === "fun") {
-    columnToUpdate = "fun";
-  } else if (type === "boring") {
-    columnToUpdate = "boring";
-  } else if (type === "easy") {
-    columnToUpdate = "easy";
-  } else if (type === "hard") {
-    columnToUpdate = "hard";
-  }
-
-  if (columnToUpdate) {
-    // Use the columnToUpdate variable to update the specified column
-    knex("daily_songs")
-      .where({ videoId: videoID })
-      .increment(columnToUpdate, direction === "increase" ? 1 : -1)
-      .then((data) => {
-        res.status(200).json(data);
-      })
-      .catch((err) => res.status(400).send(`Error updating song: ${err}`));
-  } else {
-    res.status(400).send("Invalid type parameter.");
-  }
+  knex("daily_songs")
+    .where("videoId", videoID)
+    .then((data) => {
+      res.status(200).json(data[0]);
+    })
+    .catch((err) => res.status(400).send(`Error retrieving song data: ${err}`));
 };
 
 module.exports = {
-  add,
+  addSong,
+  addVote,
   rate,
+  getDailySongStats,
 };

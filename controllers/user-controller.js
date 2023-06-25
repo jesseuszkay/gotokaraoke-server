@@ -20,10 +20,8 @@ const signup = (req, res) => {
     .then((createdUser) => {
       res.status(201).json(createdUser);
     })
-    .catch((error) => {
-      res.status(500).json({
-        message: "Unable to create new user",
-      });
+    .catch((err) => {
+      res.status(500).send("Error signing up user");
     });
 };
 

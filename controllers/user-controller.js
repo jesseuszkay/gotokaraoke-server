@@ -10,15 +10,26 @@ const signup = (req, res) => {
     Number(process.env.SALT_ROUNDS)
   );
   knex("users")
-    .insert({
-      username,
-      password: hashedPassword,
-    })
-    .then((result) => {
-      return knex("users").where({ id: result[0] });
-    })
-    .then((createdUser) => {
-      res.status(201).json(createdUser);
+    .where({ username: username.toLowerCase() })
+    .then((userExisting) => {
+      if (userExisting.length) {
+        return res.status(500).send("Error signing up user");
+      } else {
+        knex("users")
+          .insert({
+            username: username.toLowerCase(),
+            password: hashedPassword,
+          })
+          .then((result) => {
+            return knex("users").where({ id: result[0] });
+          })
+          .then((createdUser) => {
+            res.status(201).json(createdUser);
+          })
+          .catch((err) => {
+            res.status(500).send("Error signing up user");
+          });
+      }
     })
     .catch((err) => {
       res.status(500).send("Error signing up user");
@@ -36,7 +47,7 @@ const login = (req, res) => {
 
   // if match => send the token (jwt.sign ({ id }))
   knex("users")
-    .where({ username: username })
+    .where({ username: username.toLowerCase() })
     .then((usersFound) => {
       if (usersFound.length === 0) {
         return res.status(401).json({

@@ -1,6 +1,10 @@
 // import seed data files, arrays of objects
-const songsData = require("../seed-data/songs");
+const songsData = require("../seed-data/song-data");
 
 exports.seed = function (knex) {
-  knex("songs").insert(songsData);
+  return knex("songs")
+    .del()
+    .then(function () {
+      return knex("songs").insert(songsData);
+    });
 };

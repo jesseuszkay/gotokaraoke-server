@@ -12,6 +12,7 @@ exports.up = function (knex) {
     table.string("tags");
     table.integer("year_released");
     table.integer("duration_ms");
+    table.string("song_length");
     table.string("videoId");
     table.string("url");
     table.string("decade");

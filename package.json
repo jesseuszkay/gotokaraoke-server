@@ -1,10 +1,10 @@
 {
   "name": "jesse-uszkay-capstone-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "npx nodemon index.js",
+    "start": "node server.js",
+    "dev": "npx nodemon server.js",
     "migrate": "knex migrate:latest",
     "migrate:down": "npx knex migrate:down",
     "migrate:rollback": "npx knex migrate:rollback",

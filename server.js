@@ -14,6 +14,6 @@ app.use(express.json());
 app.use("/songs", songRoutes);
 app.use("/user", userRoutes);
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT | PORT, () => {
   console.log(`running at http://localhost:${PORT}`);
 });

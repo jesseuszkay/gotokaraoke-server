@@ -8,10 +8,10 @@ require("dotenv").config();
 module.exports = {
   client: "mysql",
   connection: {
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    host: "us-cdbr-east-06.cleardb.net",
+    database: "heroku_fce985c65ff7d41",
+    user: "bb8cc0060af505",
+    password: "2582168b",
     charset: "utf8",
   },
 };

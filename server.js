@@ -9,11 +9,13 @@ app.use(cors({ origin: process.env.CORS_ORIGIN }));
 
 const songRoutes = require("./routes/song-routes");
 const userRoutes = require("./routes/user-routes");
+const albumRoutes = require("./routes/album-routes");
 
 app.use(express.json());
 app.use("/songs", songRoutes);
 app.use("/user", userRoutes);
+app.use("/albums", albumRoutes);
 
-app.listen(process.env.PORT | PORT, () => {
+app.listen(PORT, () => {
   console.log(`running at http://localhost:${PORT}`);
 });

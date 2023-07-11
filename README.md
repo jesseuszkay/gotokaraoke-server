@@ -21,18 +21,13 @@ To install gotokaraoke locally on your device:
 - Create a database in mysql to store the songs, users, and song_matches data.
 - Create a .env in the server folder file based off of the example file contained in the repository. Ensure that
 - Run npx knex migrate:latest and npx knex seed:run to create the necessary tables and seed the song data into the songs table.
-- Run the server with "node server.js" and run the client-side with "npm run dev".
+- Run the server with "npm start" and run the client-side with "npm run dev".
 
 ## Roadmap
 
-- Album grid search
-
-- Song of the day feature
-
-- Song fun and easiness voting
-
+- Tooltip tutorial
+- Song added notification
 - Request-a-song and report incorrect data functionality
-
 - Adding more songs
 
 ## Tech Stack
@@ -42,9 +37,10 @@ To install gotokaraoke locally on your device:
 - HTML
 - CSS
 - JavaScript
-- React: JavaScript library for building user interfaces, providing a component-based approach.
-- Sass: CSS preprocessor to include variables and mixins
+- React
+- Sass
 - Axios: To make HTTP requests to the server.
+- Material UI: for modals
 
 **Server:**
 
@@ -64,13 +60,13 @@ To install gotokaraoke locally on your device:
 
 Enter the gotokaraoke site by clicking "Enter here" on the landing page.
 
-If you are short on time, you can immediately start looking through and/or filtering the song list to quickly find your perfect song. However, to truly experience gotokaraoke, you should create your own account. To do this, click "Login" in the upper right corner and then "Don't have an account, click here to create one!".
+If you are short on time, you can immediately start looking through and/or filtering the song list and album grid to quickly find your perfect song. However, to truly experience gotokaraoke, you should create your own account. To do this, click "Login" in the upper right corner and then "Don't have an account, click here to create one!".
 
 Enter a username and password. If your username is not taken, you will be directed to the login page where you should enter your new username and password.
 
 From there, you will be taken to your profile page, which will suggest that you should take a look at the song finder to add some songs to your profile.
 
-On the Song Finder page (also the home page), you may search through the entire list of songs using the "Next" and "Back" buttons, or you may filter the song list with a text search or using the dropdown filters for decade released (if you want nostalgia or brand new hits), song length (to savor your time in the spotlight or to leave them wanting more), and genre (to find the perfect song to express yourself). Once you've entered your filters, click the "Filter Songs" button to see the corresponding songs. If you want to remove all filters and start over, click the "Reset Filters" button and then "Filter Songs" to see the complete list again.
+On the Song Finder page (also the home page), you may search through the entire list of songs using the ">" and "<" buttons, or you may filter the song list with a text search or using the dropdown filters for decade released (if you want nostalgia or brand new hits), song length (to savor your time in the spotlight or to leave them wanting more), and genre (to find the perfect song to express yourself). Once you've entered your filters, click the "Filter Songs" button to see the corresponding songs. If you want to remove all filters and start over, click the "Reset Filters" button and then "Filter Songs" to see the complete list again.
 
 Clicking the title of a song on the list will open a link to a karaoke version on Sing King Karaoke on YouTube in another window so you can check to make sure it suits your needs, or practice it if you have the time. To add the song to your list, click the "+" icon on the right. When you click the "+" icon, it will change to a "-" icon to remove the song from your list (in case you clicked it by accident). You can now check your profile page by selecting "Profile" in the nav bar and you should see the list of songs you selected. To remove a song from your list, perhaps once your friends are getting sick of hearing it, you can click the "-" icon next to the song.
 

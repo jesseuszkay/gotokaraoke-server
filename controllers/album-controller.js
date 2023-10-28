@@ -47,50 +47,6 @@ const getOne = (req, res) => {
     .catch((err) => res.status(400).send(`Error retrieving album: ${err}`));
 };
 
-/* const retrieveUserDetails = (req, res) => {
-    const userId = req.payload.userId;
-    knex("users")
-      .select(
-        "users.username",
-        "song_matches.song_id",
-        "songs.title",
-        "songs.artists",
-        "songs.year_released",
-        "songs.duration_ms",
-        "songs.videoId"
-      )
-      .leftJoin("song_matches", "users.id", "song_matches.user_id")
-      .leftJoin("songs", "song_matches.song_id", "songs.id")
-      .where("users.id", userId)
-      .then((data) => {
-        // Create an array of objects containing song IDs and titles
-        const songs = data.map((item) => {
-          return {
-            id: item.song_id,
-            title: item.title,
-            artists: item.artists,
-            year_released: item.year_released,
-            duration_ms: item.duration_ms,
-            videoId: item.videoId,
-          };
-        });
-  
-        // Extract the unique username (since it's the same for all rows)
-        const username = data.length > 0 ? data[0].username : null;
-  
-        const userDetails = {
-          userId: userId,
-          username: username,
-          songs: songs,
-        };
-  
-        return res.status(200).json(userDetails);
-      })
-      .catch((err) => {
-        res.status(400).send(`Error retrieving user details: ${err}`);
-      });
-  }; */
-
 module.exports = {
   index,
   getOne,
